@@ -4,7 +4,7 @@ const xss = require('xss')
 const WorkoutService = require('./WorkoutService')
 
 const WorkoutRouter = express.Router()
-const jsonParser = express.json()
+//const jsonParser = express.json()
 
 const serializeWorkout  = workout => ({
     workout_id: xss(workout.workout_id),

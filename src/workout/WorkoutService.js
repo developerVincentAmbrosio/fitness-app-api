@@ -1,7 +1,7 @@
-const TrackerService = {
+const WorkoutService = {
     getAllWorkouts(knex) {
         return knex.select('*').from(workout)
     },
 }
 
-module.exports = TrackerService
+module.exports = WorkoutService
