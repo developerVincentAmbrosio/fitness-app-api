@@ -5,11 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "dev": "nodemon src/server.js",
+    "dev": "nodemon server.js",
     "migrate": "postgrator --config postgrator-config.js",
-    "start": "node src/server.js"
+    "start": "node server.js"
   },
   "keywords": [],
+  "engines": {
+    "node": "14.15.1"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
