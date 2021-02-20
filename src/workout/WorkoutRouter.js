@@ -7,9 +7,9 @@ const WorkoutRouter = express.Router()
 //const jsonParser = express.json()
 
 const serializeWorkout  = workout => ({
-    workout_id: xss(workout.workout_id),
-    user_id: xss(workout.user_id),
-    exercise_id: xss(workout.exercise_id),
+    id: xss(workout.id),
+    use_id: xss(workout.use_id),
+    ex_id: xss(workout.ex_id),
     set_number: xss(workout.set_number),
     num_of_reps: xss(workout.num_of_reps),
     weight_used: xss(workout.weight_used),
@@ -28,4 +28,4 @@ WorkoutRouter
             .catch(next)
     })
 
-module.exports = WorkoutRouter    
+module.exports = WorkoutRouter
