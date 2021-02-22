@@ -7,6 +7,7 @@
     "test": "mocha",
     "dev": "nodemon server.js",
     "migrate": "postgrator --config postgrator-config.js",
+    "migrate:production": "heroku run npm run migrate",
     "start": "node server.js"
   },
   "keywords": [],
