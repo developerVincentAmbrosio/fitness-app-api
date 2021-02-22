@@ -1,6 +1,6 @@
 const WorkoutService = {
     getAllWorkouts(knex) {
-        return knex.select('*').from('fitness_workout')
+            return knex.select('*').from('fitness_workout').where('is_active', 1)
     },
 }
 

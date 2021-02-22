@@ -17,7 +17,12 @@ const serializeWorkout  = workout => ({
     is_active: xss(workout.is_active)
 })
 
-WorkoutRouter
+ WorkoutRouter
+//     .route('/api/workout')
+//     .get((req, res) => {
+//     res.send('Hello, workout!')
+// })
+
     .route('/')
     .get((req, res, next) => {
         const knexInstance = req.app.get('db')
