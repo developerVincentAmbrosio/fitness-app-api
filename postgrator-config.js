@@ -3,5 +3,5 @@ console.log(process.env.DATABASE_URL, 123);
 module.exports = {
     "migrationsDirectory": "migrations",
     "driver": "pg",
-    "ConnectionString": process.env.DATABASE_URL,
+    "connectionString": process.env.DATABASE_URL,
 }
