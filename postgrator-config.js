@@ -1,5 +1,5 @@
-if (process.env.NODE_ENV !== "production") require('dotenv').config();
-console.log(process.env.DATABASE_URL, 123);
+//if (process.env.NODE_ENV !== "production") require('dotenv').config();
+
 module.exports = {
     "migrationsDirectory": "migrations",
     "driver": "pg",
