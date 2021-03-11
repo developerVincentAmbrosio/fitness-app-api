@@ -29,9 +29,10 @@
     "nodemon": "^2.0.7",
     "path-posix": "^1.0.0",
     "pg": "^8.5.1",
-    "xss": "^1.0.8"
+    "xss": "^1.0.8",
+    "postgrator-cli": "^3.2.0"
   },
   "devDependencies": {
-    "postgrator-cli": "^3.2.0"
+    
   }
 }
