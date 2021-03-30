@@ -38,7 +38,7 @@ WorkoutRouter
             return res.status(400).json({
                 error: { message: `${key} is required`}
             })
-
+//splilt below function into sets and reps?
     WorkoutService.insertWorkout(req.app.get('db'), newWorkout)
         .then(workout => {
             res
@@ -48,7 +48,7 @@ WorkoutRouter
         })
         .catch(next)
     })
-
+//Should I have this functionality here?
     WorkoutRouter
         .route('/:id')
         .all((req, res, next) => {
@@ -73,7 +73,7 @@ WorkoutRouter
         })
 
         .delete((req, res, next) => {
-            WorkoutService.deleteExercise(
+            WorkoutService.delete(
                 req.app.get('db'),
                 req.params.id
             )
@@ -94,12 +94,12 @@ WorkoutRouter
                     message: `${key} must have content`
                 }
             })
-            WorkoutService.updateExercise(
+            WorkoutService.updateWorkout( //what is the service object being used here?
                 req.app.get('db'),
                 req.params.id,
                 workoutToUpdate
             )
-            .then(numRowsAffected => {
+            .then(numRowsAffected => {//fix numRowsAffected
                 res.status(204).end()
             })
             .catch(next)
