@@ -5,17 +5,8 @@ const WorkoutService = {
         .where('is_active', 1)
     },
 
-    insertSet(knex, newSet) {
-        return knex.insert(newSet)
-        .into('fitness_workout')
-        .returning('*')
-        .then(rows => {
-            return rows[0]
-        })
-    },
-
-    insertRep(knex, newRep) {
-        return knex.insert(newRep)
+    insertWorkout(knex, newWorkoutDetails) {
+        return knex.insert(newWorkoutDetails)
         .into('fitness_workout')
         .returning('*')
         .then(rows => {
@@ -30,25 +21,17 @@ const WorkoutService = {
         .first()
     },
 
-    delete(knex, id) {
+    deleteWorkout(knex, id) {
         return knex.from('fitness_workout')
         .where({ id })
         .delete()
     },
 
-    updateSet(knex, id, updatedSet) {
+    updateWorkout(knex, id, updateWorkoutDetails) {
         return knex.from('fitness_workout')
         .where({ id })
-        .update(updatedSet)
+        .update(updateWorkoutDetails)
     },
-
-
-    updateRep(knex, id, updatedRep) {
-        return knex.from('fitness_workout')
-        .where({ id })
-        .update(updatedRep)
-    },
-
 }
 
 module.exports = WorkoutService

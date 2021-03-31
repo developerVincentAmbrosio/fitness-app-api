@@ -12,9 +12,9 @@ const serializeWorkout  = workout => ({
     ex_id: xss(workout.ex_id),
     set_number: xss(workout.set_number),
     num_of_reps: xss(workout.num_of_reps),
-    weight_used: xss(workout.weight_used),
-    date_completed: xss(workout.date_completed),
-    is_active: xss(workout.is_active)
+    weight_used: xss(workout.weight_used)//,
+ //   date_completed: xss(workout.date_completed),
+//    is_active: xss(workout.is_active)
 })
 
 WorkoutRouter
@@ -26,34 +26,30 @@ WorkoutRouter
             })
             .catch(next)
     })
-
     .post(jsonParser, (req, res, next) => {
-        const { set_number, num_of_reps, weight_used } = req.body
-        const newWorkout  = { set_number, num_of_reps, weight_used }
+        const { id, use_id, ex_id, set_number, num_of_reps, weight_used } = req.body
+        const newWorkout  = { id, use_id, ex_id, set_number, num_of_reps, weight_used }
 
         for (const[key, value] of Object.entries(newWorkout))
         if (value == null)
             return res.status(400).json({
-                error: { message: `${key} is required`}
+                error: { message: `${key} is required!`}
             })
-//splilt below function into sets and reps?
-    WorkoutService.insertWorkout(req.app.get('db'), newWorkout)
-        .then(workout => {
-            res
-                .status(201)
-                .location(path.posix.join(req.originalUrl, `/${workout.id}`))
-                .json(serializeWorkout(workout))
+
+        WorkoutService.insertWorkout(req.app.get('db'), newWorkout)
+            .then(workout => {
+                res
+                    .status(201)
+                    .location(path.posix.join(req.originalUrl, `/${workout.id}`))
+                    .json(serializeWorkout(workout))
         })
         .catch(next)
     })
-//Should I have this functionality here?
+
     WorkoutRouter
-        .route('/:id')
+        .route('/:workout_id')
         .all((req, res, next) => {
-            WorkoutService.getById(
-                req.app.get('db'),
-                req.params.id
-            )
+            WorkoutService.getById(req.app.get('db'), req.params.workout_id)
                 .then(workout => {
                     if(!workout) {
                         return res.status(404).json({
@@ -71,10 +67,7 @@ WorkoutRouter
         })
 
         .delete((req, res, next) => {
-            WorkoutService.delete(
-                req.app.get('db'),
-                req.params.id
-            )
+            WorkoutService.deleteWorkout(req.app.get('db'), req.params.workout_id)
             then(numRowsAffected => {
                 res.status(204).end()
             })
@@ -82,8 +75,8 @@ WorkoutRouter
         })
 
         .patch(jsonParser, (req, res, next) => {
-            const { set_number, num_of_reps, weight_used } = req.body
-            const newExercise  = { set_number, num_of_reps, weight_used }
+            const { id, use_id, ex_id, set_number, num_of_reps, weight_used } = req.body
+            const workoutToUpdate  = { id, use_id, ex_id, set_number, num_of_reps, weight_used }
 
             const numberOfValues = Object.values(workoutToUpdate).filter(Boolean).length
             if (numberOfValues === 0)
@@ -92,11 +85,7 @@ WorkoutRouter
                     message: `${key} must have content`
                 }
             })
-            WorkoutService.updateWorkout( //what is the service object being used here?
-                req.app.get('db'),
-                req.params.id,
-                workoutToUpdate
-            )
+            WorkoutService.updateWorkout(req.app.get('db'), req.params.workout_id, workoutToUpdate)
             .then(numRowsAffected => {//fix numRowsAffected
                 res.status(204).end()
             })

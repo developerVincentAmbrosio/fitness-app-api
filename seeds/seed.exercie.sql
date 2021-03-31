@@ -1,4 +1,4 @@
-INSERT INTO fitness_exercise (id, excercise_type, exercise_name, exercise_desc, is_active)
+INSERT INTO fitness_exercise (id, exercise_type, exercise_name, exercise_desc, is_active)
 VALUES
 (1,'chest','bench press','keep arms in line with chest',true),
 (2,'chest','fly','keep elbows slightly bent, like you are hugging a barrel',true),
