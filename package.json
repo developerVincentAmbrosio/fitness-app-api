@@ -32,7 +32,5 @@
     "xss": "^1.0.8",
     "postgrator-cli": "^3.2.0"
   },
-  "devDependencies": {
-    
-  }
+  "devDependencies": {}
 }

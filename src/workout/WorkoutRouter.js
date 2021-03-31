@@ -19,12 +19,10 @@ const serializeWorkout  = workout => ({
 
 WorkoutRouter
     .route('/')
-
     .get((req, res, next) => {
-        const knexInstance = req.app.get('db')
-        WorkoutService.getAllWorkouts(knexInstance)
-            .then(workouts => {
-                res.json(workouts.map(serializeWorkout))
+        WorkoutService.getAllWorkouts(req.app.get('db'))
+            .then(workout => {
+                res.json(workout.map(serializeWorkout))
             })
             .catch(next)
     })
@@ -106,4 +104,4 @@ WorkoutRouter
         })
 
     
-module.exports = ExerciseRouter
+module.exports = WorkoutRouter

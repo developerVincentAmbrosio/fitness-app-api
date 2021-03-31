@@ -1,4 +1,3 @@
-const path = require('path')
 const express = require('express')
 const xss = require('xss')
 const ExerciseService = require('./ExerciseService')
@@ -14,17 +13,12 @@ const serializeExercise  = exercise => ({
 })
 
 ExerciseRouter
-//     .route('/api/workout')
-//     .get((req, res) => {
-//     res.send('Hello, workout!')
-// })
 
     .route('/')
     .get((req, res, next) => {
-        const knexInstance = req.app.get('db')
-        ExerciseService.getAllExercises(knexInstance)
-            .then(exercises => {
-                res.json(exercises.map(serializeExercise))
+        ExerciseService.getAllExercises(req.app.get('db'))
+            .then(exercise => {
+                res.json(exercise.map(serializeExercise))
             })
             .catch(next)
     })

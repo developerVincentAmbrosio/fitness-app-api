@@ -18,6 +18,7 @@ app.use(cors())
 
 app.use('/api/workout', require('./workout/WorkoutRouter'))
 app.use('/api/exercise', require('./exercise/ExerciseRouter'))
+app.use('/api/user', require('./user/UserRouter'))
 
 app.get('/', (req, res) => {
     res.send('Hello, world!')

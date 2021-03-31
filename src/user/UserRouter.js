@@ -1,4 +1,3 @@
-const path = require('path')
 const express = require('express')
 const xss = require('xss')
 const UserService = require('./UserService')
@@ -15,17 +14,11 @@ const serializeUser  = user => ({
 })
 
 UserRouter
-//     .route('/api/user')
-//     .get((req, res) => {
-//     res.send('Hello, users')
-// })
-
     .route('/')
     .get((req, res, next) => {
-        const knexInstance = req.app.get('db')
-        UserService.getAllUsers(knexInstance)
-            .then(users => {
-                res.json(users.map(serializeUser))
+        UserService.getAllUsers(req.app.get('db'))
+            .then(user => {
+                res.json(user.map(serializeUser))
             })
             .catch(next)
     })
