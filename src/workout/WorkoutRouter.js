@@ -27,13 +27,13 @@ WorkoutRouter
             .catch(next)
     })
     .post(jsonParser, (req, res, next) => {
-        const { id, use_id, ex_id, set_number, num_of_reps, weight_used } = req.body
-        const newWorkout  = { id, use_id, ex_id, set_number, num_of_reps, weight_used }
-
+        const { ex_id, set_number, num_of_reps, weight_used } = req.body
+        console.log('req.body data: ' + ex_id, set_number, num_of_reps, weight_used);
+        const newWorkout  = { ex_id, set_number, num_of_reps, weight_used }
+ 
         for (const[key, value] of Object.entries(newWorkout))
         if (value == null)
             return res.status(400).json({
-                error: { message: `${key} is required!`}
             })
 
         WorkoutService.insertWorkout(req.app.get('db'), newWorkout)
