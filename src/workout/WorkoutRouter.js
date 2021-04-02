@@ -28,7 +28,6 @@ WorkoutRouter
     })
     .post(jsonParser, (req, res, next) => {
         const { set_number, num_of_reps, weight_used } = req.body
-        console.log('==== CONSOLE LOG REQ BODY DATA: ' + set_number, num_of_reps, weight_used);
         const newWorkout  = { set_number, num_of_reps, weight_used }
  
         for (const[key, value] of Object.entries(newWorkout))
@@ -67,16 +66,17 @@ WorkoutRouter
         })
 
         .delete((req, res, next) => {
-            WorkoutService.deleteWorkout(req.app.get('db'), req.params.workout_id)
-            then(numRowsAffected => {
+            const { workout_id } = req.params
+            WorkoutService.deleteWorkout(req.app.get('db'), workout_id)
+            then(() => {
                 res.status(204).end()
             })
             .catch(next)
         })
 
         .patch(jsonParser, (req, res, next) => {
-            const { id, use_id, ex_id, set_number, num_of_reps, weight_used } = req.body
-            const workoutToUpdate  = { id, use_id, ex_id, set_number, num_of_reps, weight_used }
+            const { set_number, num_of_reps, weight_used } = req.body
+            const workoutToUpdate  = { set_number, num_of_reps, weight_used }
 
             const numberOfValues = Object.values(workoutToUpdate).filter(Boolean).length
             if (numberOfValues === 0)
@@ -86,7 +86,7 @@ WorkoutRouter
                 }
             })
             WorkoutService.updateWorkout(req.app.get('db'), req.params.workout_id, workoutToUpdate)
-            .then(numRowsAffected => {//fix numRowsAffected
+            .then(() => {
                 res.status(204).end()
             })
             .catch(next)
