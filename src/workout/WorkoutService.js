@@ -5,13 +5,14 @@ const WorkoutService = {
         .where('is_active', 1)
     },
 
-    insertWorkout(knex, newWorkoutDetails) {
-        return knex.insert(newWorkoutDetails)
+    insertWorkout(knex, newWorkout) {
+        return knex
+        .insert(newWorkout)
         .into('fitness_workout')
         .returning('*')
         .then(rows => {
             return rows[0]
-        })
+        })  
     },
 
     getById(knex, id) {
@@ -22,16 +23,25 @@ const WorkoutService = {
     },
 
     deleteWorkout(knex, id) {
-        return knex.from('fitness_workout')
-        .where({ id })
+        return knex('fitness_workout')
+        .where( {id} )
         .delete()
     },
 
     updateWorkout(knex, id, updateWorkoutDetails) {
-        return knex.from('fitness_workout')
+        return knex('fitness_workout')
         .where({ id })
         .update(updateWorkoutDetails)
     },
 }
 
 module.exports = WorkoutService
+
+// insertWorkout(knex, newWorkoutDetails) {
+//     return knex.insert(newWorkoutDetails)
+//     .into('fitness_workout')
+//     .returning('*')
+//     .then(rows => {
+//         return rows[0]
+//     })      
+// },

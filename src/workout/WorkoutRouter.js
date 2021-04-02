@@ -27,14 +27,14 @@ WorkoutRouter
             .catch(next)
     })
     .post(jsonParser, (req, res, next) => {
-        const { ex_id, set_number, num_of_reps, weight_used } = req.body
-        console.log('==== CONSOLE LOG REQ BODY DATA: ' + ex_id, set_number, num_of_reps, weight_used);
-        const newWorkout  = { ex_id, set_number, num_of_reps, weight_used }
+        const { set_number, num_of_reps, weight_used } = req.body
+        console.log('==== CONSOLE LOG REQ BODY DATA: ' + set_number, num_of_reps, weight_used);
+        const newWorkout  = { set_number, num_of_reps, weight_used }
  
         for (const[key, value] of Object.entries(newWorkout))
-        // if (value == null)
-        //     return res.status(400).json({
-        //     })
+        if (value == null)
+            return res.status(400).json({
+            })
 
         WorkoutService.insertWorkout(req.app.get('db'), newWorkout)
             .then(workout => {
